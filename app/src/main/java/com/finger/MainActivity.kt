@@ -13,6 +13,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
@@ -143,9 +144,8 @@ private fun FingerScreen() {
         }
     } else {
         Column(Modifier.fillMaxSize().padding(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(Modifier.weight(1f)) {
-                    Text(netDesc ?: stringResource(R.string.network_default), style = MaterialTheme.typography.titleMedium)
+            Column(Modifier.fillMaxWidth()) {
+                Text(netDesc ?: stringResource(R.string.network_default), style = MaterialTheme.typography.titleMedium)
                     rangeDesc?.let {
                         Text(it, style = MaterialTheme.typography.bodySmall,
                             fontFamily = FontFamily.Monospace)
@@ -162,14 +162,6 @@ private fun FingerScreen() {
                                 fontFamily = FontFamily.Monospace)
                         }
                     }
-                }
-                if (scanning) {
-                    OutlinedButton(onClick = { scanJob?.cancel(); scanning = false }) {
-                        Text(stringResource(R.string.stop))
-                    }
-                } else {
-                    Button(onClick = { startScan() }) { Text(stringResource(R.string.scan)) }
-                }
             }
             if (scanning) {
                 Spacer(Modifier.height(8.dp))
@@ -194,6 +186,7 @@ private fun FingerScreen() {
             ) {
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(bottom = 8.dp),
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(devices, key = { it.ip }) { d ->
@@ -226,6 +219,27 @@ private fun FingerScreen() {
                     }
                 }
             }
+            }
+            Spacer(Modifier.height(12.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                if (scanning) {
+                    OutlinedButton(
+                        onClick = { scanJob?.cancel(); scanning = false },
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(stringResource(R.string.stop))
+                    }
+                } else {
+                    Button(
+                        onClick = { startScan() },
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(stringResource(R.string.scan))
+                    }
+                }
             }
         }
     }
