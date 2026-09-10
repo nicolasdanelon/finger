@@ -10,6 +10,8 @@ captures/
 .cxx/
 *.hprof
 *.keystore
+*.jks
+keystore.properties
 
 # OS
 .DS_Store

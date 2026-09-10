@@ -53,6 +53,12 @@ English (default) · Español (`values-es`) · Italiano (`values-it`), con
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
+Release (firmado, requiere `keystore.properties` local, gitignored):
+```
+./gradlew :app:assembleRelease
+# → app/build/outputs/apk/release/app-release.apk
+```
+
 ## Privacidad / backups
 App stateless: sin base, sin prefs, sin archivos. Backups y transferencias
 excluidos por completo (`data_extraction_rules.xml` + `backup_rules.xml`).
