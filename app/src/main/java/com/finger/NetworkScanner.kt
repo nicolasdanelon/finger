@@ -204,12 +204,13 @@ object NetworkScanner {
         return map
     }
 
-    private fun resolveHostname(ip: String): String {
+    private fun resolveHostname(ctx: Context, ip: String): String {
         return try {
+            val unknown = ctx.getString(R.string.unknown_host)
             val name = InetAddress.getByName(ip).canonicalHostName?.trim().orEmpty()
-            if (name.isEmpty() || name == ip) "desconocido" else name
+            if (name.isEmpty() || name == ip) unknown else name
         } catch (_: Exception) {
-            "desconocido"
+            ctx.getString(R.string.unknown_host)
         }
     }
 
@@ -256,7 +257,7 @@ object NetworkScanner {
                             val r = pingOnce(ip)
                             if (r.ok) {
                                 pingOk++
-                                val dev = NetDevice(ip, resolveHostname(ip), readArpTable()[ip] ?: "—", r.ms, "ping")
+                                val dev = NetDevice(ip, resolveHostname(ctx, ip), readArpTable()[ip] ?: "—", r.ms, "ping")
                                 alive[ip] = dev
                                 onFound(dev)
                             }
@@ -276,7 +277,7 @@ object NetworkScanner {
                     semTcp.withPermit {
                         if (tcpAlive(ip)) {
                             tcpOk++
-                            val dev = NetDevice(ip, resolveHostname(ip), readArpTable()[ip] ?: "—", null, "tcp")
+                            val dev = NetDevice(ip, resolveHostname(ctx, ip), readArpTable()[ip] ?: "—", null, "tcp")
                             alive[ip] = dev
                             onFound(dev)
                         }
@@ -291,7 +292,7 @@ object NetworkScanner {
                 if (alive.containsKey(ip)) continue
                 if (ip == local.ownIp) continue
                 if (!sameSubnet(ip, local)) continue
-                val dev = NetDevice(ip, resolveHostname(ip), mac, null, "arp")
+                val dev = NetDevice(ip, resolveHostname(ctx, ip), mac, null, "arp")
                 alive[ip] = dev
                 onFound(dev)
             }
@@ -300,7 +301,7 @@ object NetworkScanner {
             val enriched = alive.values
                 .map { it.copy(mac = arpFinal[it.ip] ?: it.mac) }
                 .sortedBy { ipToLong(it.ip) }
-            val devices = listOf(NetDevice(local.ownIp, "este equipo", "—", null, "yo")) + enriched
+            val devices = listOf(NetDevice(local.ownIp, ctx.getString(R.string.this_device), "—", null, "yo")) + enriched
             val stats = ScanStats(System.currentTimeMillis() - t0, pingOk, tcpOk, arpFinal.size)
             ScanResult(devices, local, stats)
         }

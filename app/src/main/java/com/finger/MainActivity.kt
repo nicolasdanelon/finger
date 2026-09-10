@@ -22,6 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -78,7 +80,12 @@ private fun FingerScreen() {
         scannedCount = 0
         totalCount = 0
         val local = NetworkScanner.getLocalNetwork(appCtx)
-        rangeDesc = local?.hosts?.let { "${it.firstOrNull()} – ${it.lastOrNull()} (${it.size})" }
+        rangeDesc = local?.hosts?.let {
+            appCtx.getString(
+                R.string.range_fmt,
+                "${it.firstOrNull()} – ${it.lastOrNull()} (${it.size})"
+            )
+        }
         netDesc = local?.let {
             "${it.ownIp}/${it.prefixLength}" +
                 (it.gateway?.let { g -> " · gw $g" } ?: "") +
@@ -122,39 +129,46 @@ private fun FingerScreen() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Conectar a WiFi", style = MaterialTheme.typography.headlineMedium)
+            Text(stringResource(R.string.no_wifi_title), style = MaterialTheme.typography.headlineMedium)
             Spacer(Modifier.height(8.dp))
-            Text("No hay conexión Wi-Fi activa.")
+            Text(stringResource(R.string.no_wifi_sub))
             Spacer(Modifier.height(24.dp))
             Button(onClick = {
                 ctx.startActivity(Intent(Settings.ACTION_WIFI_SETTINGS).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 })
             }) {
-                Text("Abrir ajustes Wi-Fi")
+                Text(stringResource(R.string.open_wifi_settings))
             }
         }
     } else {
         Column(Modifier.fillMaxSize().padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
-                    Text(netDesc ?: "Red Wi-Fi", style = MaterialTheme.typography.titleMedium)
+                    Text(netDesc ?: stringResource(R.string.network_default), style = MaterialTheme.typography.titleMedium)
                     rangeDesc?.let {
-                        Text("Rango $it", style = MaterialTheme.typography.bodySmall,
+                        Text(it, style = MaterialTheme.typography.bodySmall,
                             fontFamily = FontFamily.Monospace)
                     }
                     Text(
-                        if (scanning) "Ping $scannedCount/$totalCount… ${devices.size} vivos"
-                        else "${devices.size} dispositivo(s)" + (statsDesc?.let { " · $it" } ?: ""),
+                        if (scanning) stringResource(R.string.scanning_fmt, scannedCount, totalCount) +
+                            " " + pluralStringResource(R.plurals.device_count, devices.size, devices.size)
+                        else pluralStringResource(R.plurals.device_count, devices.size, devices.size),
                         style = MaterialTheme.typography.bodySmall
                     )
+                    if (!scanning) {
+                        statsDesc?.let {
+                            Text(it, style = MaterialTheme.typography.bodySmall,
+                                fontFamily = FontFamily.Monospace)
+                        }
+                    }
                 }
                 if (scanning) {
                     OutlinedButton(onClick = { scanJob?.cancel(); scanning = false }) {
-                        Text("Detener")
+                        Text(stringResource(R.string.stop))
                     }
                 } else {
-                    Button(onClick = { startScan() }) { Text("Escanear") }
+                    Button(onClick = { startScan() }) { Text(stringResource(R.string.scan)) }
                 }
             }
             if (scanning) {
@@ -166,8 +180,7 @@ private fun FingerScreen() {
                 Spacer(Modifier.height(8.dp))
                 OutlinedCard(Modifier.fillMaxWidth()) {
                     Text(
-                        "Solo te ves a vos. Típico: AP/client isolation del router, " +
-                        "VPN activa, o red de invitados.",
+                        stringResource(R.string.only_self_help),
                         style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.padding(12.dp)
                     )

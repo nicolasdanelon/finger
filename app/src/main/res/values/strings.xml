@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_wifi_title">Connect to WiFi</string>
+    <string name="no_wifi_sub">No active Wi-Fi connection.</string>
+    <string name="open_wifi_settings">Open Wi-Fi settings</string>
+    <string name="network_default">Wi-Fi network</string>
+    <string name="range_fmt">Range %1$s</string>
+    <string name="scanning_fmt">Ping %1$d/%2$d…</string>
+    <string name="stop">Stop</string>
+    <string name="scan">Scan</string>
+    <string name="only_self_help">You only see yourself. Typical causes: router AP/client isolation, active VPN, or guest network.</string>
+    <string name="unknown_host">unknown</string>
+    <string name="this_device">this device</string>
+    <plurals name="device_count">
+        <item quantity="one">%1$d device</item>
+        <item quantity="other">%1$d devices</item>
+    </plurals>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_wifi_title">Connetti al WiFi</string>
+    <string name="no_wifi_sub">Nessuna connessione Wi-Fi attiva.</string>
+    <string name="open_wifi_settings">Apri impostazioni Wi-Fi</string>
+    <string name="network_default">Rete Wi-Fi</string>
+    <string name="range_fmt">Intervallo %1$s</string>
+    <string name="scanning_fmt">Ping %1$d/%2$d…</string>
+    <string name="stop">Interrompi</string>
+    <string name="scan">Scansiona</string>
+    <string name="only_self_help">Vedi solo questo dispositivo. Tipico: isolamento AP/client del router, VPN attiva o rete ospiti.</string>
+    <string name="unknown_host">sconosciuto</string>
+    <string name="this_device">questo dispositivo</string>
+    <plurals name="device_count">
+        <item quantity="one">%1$d dispositivo</item>
+        <item quantity="other">%1$d dispositivi</item>
+        <item quantity="many">%1$d dispositivi</item>
+    </plurals>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_wifi_title">Conectar a WiFi</string>
+    <string name="no_wifi_sub">No hay conexión Wi-Fi activa.</string>
+    <string name="open_wifi_settings">Abrir ajustes Wi-Fi</string>
+    <string name="network_default">Red Wi-Fi</string>
+    <string name="range_fmt">Rango %1$s</string>
+    <string name="scanning_fmt">Ping %1$d/%2$d…</string>
+    <string name="stop">Detener</string>
+    <string name="scan">Escanear</string>
+    <string name="only_self_help">Solo te ves a vos. Típico: AP/client isolation del router, VPN activa, o red de invitados.</string>
+    <string name="unknown_host">desconocido</string>
+    <string name="this_device">este equipo</string>
+    <plurals name="device_count">
+        <item quantity="one">%1$d dispositivo</item>
+        <item quantity="other">%1$d dispositivos</item>
+        <item quantity="many">%1$d dispositivos</item>
+    </plurals>
+</resources>
