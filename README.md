@@ -1,45 +1,74 @@
-# Finger — mini nmap WiFi (Kotlin, minimalista)
+# Finger — minimalist Wi-Fi scanner (Kotlin)
 
-App liviana: escanea la /24 Wi-Fi y lista IP, hostname y MAC.
+Lightweight app that lists the devices on your Wi-Fi: IP, hostname and latency.
+No root, no new libraries, 3 install-time permissions.
 
-## Permisos (solo 3, sin runtime)
-- `INTERNET` — ping / TCP connect + resolución DNS inversa
-- `ACCESS_NETWORK_STATE` — detectar si hay Wi-Fi (`TransportInfo`)
-- `ACCESS_WIFI_STATE` — reservado/futuro, no pide ubicación
+> **Not nmap.** There is no SYN scan here: Android apps can't open raw sockets
+> without root. Discovery is a parallel **ping sweep** (system `ping` binary,
+> which works unprivileged) + TCP-connect fallback on 12 common ports +
+> harvest of the kernel ARP/neighbor table. Hosts that answer nothing but were
+> seen by the kernel still show up via ARP.
 
-A propósito **NO** pide `ACCESS_FINE_LOCATION`: la IP propia se obtiene por
-`NetworkInterface` (wlan0) y la MAC por `/proc/net/arp`, no por `WifiManager`.
+*Leer en [español](README.es.md) · Leggi in [italiano](README.it.md)*
 
-## Pantallas
-1. Sin Wi-Fi → texto "Conectar a WiFi" + botón "Abrir ajustes Wi-Fi"
-   (`Settings.ACTION_WIFI_SETTINGS`).
-2. Con Wi-Fi → IP propia, botón Escanear/Detener, lista IP / hostname / MAC.
+## Permissions (3, install-time only, no runtime dialogs)
+- `INTERNET` — ping / TCP connect + reverse DNS
+- `ACCESS_NETWORK_STATE` — detect Wi-Fi transport
+- `ACCESS_WIFI_STATE` — declared, no location involved
 
-## Lógica (app/src/main/java/com/finger/NetworkScanner.kt)
-- `getLocalNetwork(ctx)`: IP/prefijo/gateway vía `LinkProperties` del Wi-Fi activo
-  (sin LOCATION), fallback a `NetworkInterface`.
-- Fase 1 ping binario (`ping -c 1 -W 1`, funciona sin root, a diferencia de
-  `isReachable`), fase 2 TCP en 12 puertos, fase 3 resto de ARP en subred
-  (`/proc/net/arp` + `ip neigh show`) aunque el host no responda a nada.
-- Ping manual + re-ping por dispositivo con latencia, stats
-  (`ping:n tcp:n arp:n`) y aviso de AP isolation/VPN si solo te ves a vos.
+Deliberately **no** `ACCESS_FINE_LOCATION`: the local IP/prefix/gateway come
+from `LinkProperties` of the active Wi-Fi network (fallback: `NetworkInterface`
+enumeration), never from `WifiManager`.
 
-## Compilar
+## Screens
+1. No Wi-Fi → "Connect to WiFi" + button opening `Settings.ACTION_WIFI_SETTINGS`.
+2. Wi-Fi on → own IP/prefix/gateway/interface, scanned range, live counter
+   (`Ping 37/254…`), device count with proper plurals, stats line
+   (`3.2s · ping:4 tcp:1 arp:7`), pull-to-refresh list with fade-in rows,
+   centered Scan/Stop button at the bottom. Empty-state hint when only
+   yourself is visible (AP isolation / VPN / guest network).
+
+## How it finds devices (`NetworkScanner.kt`)
+1. Local network via `LinkProperties` (no LOCATION permission).
+2. **Phase 1:** one ping per IP over the whole range, ~100 in parallel.
+   This populates the kernel ARP table.
+3. **Phase 2:** TCP connect (12 ports) for hosts blocking ICMP.
+4. **Phase 3:** remaining ARP entries in the subnet (`/proc/net/arp` +
+   `ip neigh show`) — silent hosts the kernel already saw.
+5. Hostnames via reverse DNS, fallback `unknown`. Own device pinned first.
+
+## Style
+Hacker terminal theme, colors + monospace + shapes only: phosphor green on
+near-black in dark mode, ink-on-paper in light mode (follows the system flag,
+fully offline). Custom adaptive launcher icon (vector, incl. monochrome layer).
+
+## i18n
+English (default) · Español (`values-es`) · Italiano (`values-it`), including
+`<plurals>` for the device count.
+
+## Build
 ```
-# requiere Android SDK 34 + JDK 17
+# Android SDK 34 + JDK 17+, or just:
 ./gradlew :app:assembleDebug
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
-## Estructura
+## Privacy / backups
+Stateless app: no database, no prefs, no files. Backups and device transfers
+are fully excluded (`data_extraction_rules.xml` + `backup_rules.xml`).
+
+## Layout
 ```
 app/src/main/AndroidManifest.xml
-app/src/main/java/com/finger/MainActivity.kt      # UI Compose (2 pantallas)
-app/src/main/java/com/finger/NetworkScanner.kt   # ping-sweep + ARP + DNS
+app/src/main/java/com/finger/MainActivity.kt      # Compose UI
+app/src/main/java/com/finger/NetworkScanner.kt    # ping-sweep + TCP + ARP
+app/src/main/java/com/finger/Theme.kt             # hacker theme (styles only)
+app/src/main/res/values{,-es,-it}/strings.xml
 ```
 
-## Limitaciones Android moderno
-- Sin root no se puede hacer SYN-scan tipo nmap real; se usa ping+TCP connect.
-- Algunos dispositivos no responden a ping ni tienen rDNS → salen como
-  "desconocido" con MAC de ARP si el kernel los vio.
-- En Android 10+ la MAC propia sale `02:00:00:00:00:00`, por eso se muestra "—".
+## Known limits (modern Android)
+- No true nmap-style SYN scan without root.
+- Hosts answering nothing with no rDNS show as `unknown`.
+- Your own MAC reads `02:00:00:00:00:00` on Android 10+, hence hidden.
+- `lintDebug` is green except 2 `GradleDependency` upkeep warnings (bumping
+  `activity-compose` would force `compileSdk 35`, intentionally deferred).
