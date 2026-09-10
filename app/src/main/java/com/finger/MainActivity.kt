@@ -9,6 +9,8 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +20,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -181,8 +184,14 @@ private fun FingerScreen() {
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(devices, key = { it.ip }) { d ->
+                    var shown by remember { mutableStateOf(false) }
+                    LaunchedEffect(Unit) { shown = true }
+                    val alpha by animateFloatAsState(
+                        targetValue = if (shown) 1f else 0f,
+                        animationSpec = tween(500)
+                    )
                     OutlinedCard(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().alpha(alpha),
                         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
                     ) {
                         Column(Modifier.padding(12.dp)) {
@@ -200,12 +209,6 @@ private fun FingerScreen() {
                                 }
                             }
                             Text(d.hostname, style = MaterialTheme.typography.bodyMedium)
-                            Text(
-                                (if (d.mac == "—") "MAC —" else d.mac) +
-                                    (if (d.via.isNotEmpty() && d.via != "yo") " · ${d.via}" else ""),
-                                style = MaterialTheme.typography.bodySmall,
-                                fontFamily = FontFamily.Monospace
-                            )
                         }
                     }
                 }
