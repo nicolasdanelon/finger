@@ -3,27 +3,12 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Punto (este equipo) -->
+    <!-- Anillo verde -->
     <path
-        android:fillColor="#4ADE80"
-        android:pathData="M49,68 a5,5 0 1,0 10,0 a5,5 0 1,0 -10,0" />
-    <!-- Ondas wifi -->
+        android:fillColor="#4CAF50"
+        android:pathData="M54,24c-16.6,0 -30,13.4 -30,30s13.4,30 30,30 30,-13.4 30,-30 -13.4,-30 -30,-30zM54,76c-12.1,0 -22,-9.9 -22,-22s9.9,-22 22,-22 22,9.9 22,22 -9.9,22 -22,22z" />
+    <!-- Flecha blanca -->
     <path
-        android:strokeColor="#4ADE80"
-        android:strokeWidth="6"
-        android:strokeLineCap="round"
-        android:fillColor="#00000000"
-        android:pathData="M44.1,58.1 A14,14 0 0 1 63.9,58.1" />
-    <path
-        android:strokeColor="#4ADE80"
-        android:strokeWidth="6"
-        android:strokeLineCap="round"
-        android:fillColor="#00000000"
-        android:pathData="M35.6,49.6 A26,26 0 0 1 72.4,49.6" />
-    <path
-        android:strokeColor="#4ADE80"
-        android:strokeWidth="6"
-        android:strokeLineCap="round"
-        android:fillColor="#00000000"
-        android:pathData="M27.1,41.1 A38,38 0 0 1 80.9,41.1" />
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,44l-8,16h5v8h6v-8h5z" />
 </vector>
