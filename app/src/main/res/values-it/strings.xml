@@ -16,4 +16,35 @@
         <item quantity="other">%1$d dispositivi</item>
         <item quantity="many">%1$d dispositivi</item>
     </plurals>
+
+    <!-- Tab Internet + widget -->
+    <string name="nav_lan">Rete locale</string>
+    <string name="nav_internet">Internet</string>
+    <string name="widget_desc">Mostra connessione, IP pubblico (ip.x9.ar) e stato della VPN.</string>
+    <string name="widget_updated_label">updated at</string>
+    <string name="widget_vpn_on">VPN ON</string>
+    <string name="widget_vpn_off">VPN OFF</string>
+    <string name="widget_updating">aggiornamento…</string>
+    <string name="widget_never">mai</string>
+    <string name="action_refresh_desc">Aggiorna</string>
+    <string name="conn_wifi">WiFi</string>
+    <string name="conn_mobile">Dati mobili</string>
+    <string name="conn_ethernet">Ethernet</string>
+    <string name="conn_connected">Connesso</string>
+    <string name="conn_none">Nessuna connessione</string>
+    <string name="main_subtitle">Connessione · IP pubblico (ip.x9.ar) · VPN</string>
+    <string name="main_ip_label">IP pubblico</string>
+    <string name="main_refresh">Aggiorna ora</string>
+    <string name="main_add_widget">Aggiungi il widget alla home</string>
+    <string name="main_hint">Suggerimento: puoi anche tenere premuta la schermata home → Widget → Finger.</string>
+    <string name="main_hint_manual">Tieni premuto lo sfondo della home → Widget → Finger</string>
+    <string name="main_querying_ip">richiesta a ip.x9.ar…</string>
+    <string name="vpn_state_on">VPN ATTIVA</string>
+    <string name="vpn_state_off">VPN spenta</string>
+    <string name="vpn_detail_transport">La rete attiva passa attraverso la VPN (TRANSPORT_VPN).</string>
+    <string name="vpn_detail_iface">Interfaccia VPN attiva (tun/wg/ppp).</string>
+    <string name="vpn_detail_none">Nessun tunnel rilevato.</string>
+    <string name="ip_no_network">senza rete</string>
+    <string name="ip_error">errore (rete bloccata?)</string>
+    <string name="widget_updated_at">Widget aggiornato: %1$s</string>
 </resources>

@@ -16,4 +16,35 @@
         <item quantity="other">%1$d dispositivos</item>
         <item quantity="many">%1$d dispositivos</item>
     </plurals>
+
+    <!-- Tab Internet + widget -->
+    <string name="nav_lan">Red local</string>
+    <string name="nav_internet">Internet</string>
+    <string name="widget_desc">Muestra conexión, IP pública (ip.x9.ar) y estado de VPN.</string>
+    <string name="widget_updated_label">updated at</string>
+    <string name="widget_vpn_on">VPN ON</string>
+    <string name="widget_vpn_off">VPN OFF</string>
+    <string name="widget_updating">actualizando…</string>
+    <string name="widget_never">nunca</string>
+    <string name="action_refresh_desc">Actualizar</string>
+    <string name="conn_wifi">WiFi</string>
+    <string name="conn_mobile">Datos móviles</string>
+    <string name="conn_ethernet">Ethernet</string>
+    <string name="conn_connected">Conectado</string>
+    <string name="conn_none">Sin conexión</string>
+    <string name="main_subtitle">Conexión · IP pública (ip.x9.ar) · VPN</string>
+    <string name="main_ip_label">IP pública</string>
+    <string name="main_refresh">Actualizar ahora</string>
+    <string name="main_add_widget">Agregar widget al inicio</string>
+    <string name="main_hint">Tip: también podés mantener presionado el fondo de la pantalla de inicio → Widgets → Finger.</string>
+    <string name="main_hint_manual">Mantené presionado el fondo del inicio → Widgets → Finger</string>
+    <string name="main_querying_ip">consultando ip.x9.ar…</string>
+    <string name="vpn_state_on">VPN PRENDIDA</string>
+    <string name="vpn_state_off">VPN apagada</string>
+    <string name="vpn_detail_transport">La red activa pasa por VPN (TRANSPORT_VPN).</string>
+    <string name="vpn_detail_iface">Hay interfaz VPN activa (tun/wg/ppp).</string>
+    <string name="vpn_detail_none">Sin túnel detectado.</string>
+    <string name="ip_no_network">sin red</string>
+    <string name="ip_error">error (¿bloqueo de red?)</string>
+    <string name="widget_updated_at">Widget actualizado: %1$s</string>
 </resources>

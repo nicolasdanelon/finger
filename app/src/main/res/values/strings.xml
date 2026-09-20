@@ -15,4 +15,35 @@
         <item quantity="one">%1$d device</item>
         <item quantity="other">%1$d devices</item>
     </plurals>
+
+    <!-- Internet tab + widget -->
+    <string name="nav_lan">LAN</string>
+    <string name="nav_internet">Internet</string>
+    <string name="widget_desc">Shows connection, public IP (ip.x9.ar) and VPN status.</string>
+    <string name="widget_updated_label">updated at</string>
+    <string name="widget_vpn_on">VPN ON</string>
+    <string name="widget_vpn_off">VPN OFF</string>
+    <string name="widget_updating">updating…</string>
+    <string name="widget_never">never</string>
+    <string name="action_refresh_desc">Refresh</string>
+    <string name="conn_wifi">WiFi</string>
+    <string name="conn_mobile">Mobile data</string>
+    <string name="conn_ethernet">Ethernet</string>
+    <string name="conn_connected">Connected</string>
+    <string name="conn_none">No connection</string>
+    <string name="main_subtitle">Connection · Public IP (ip.x9.ar) · VPN</string>
+    <string name="main_ip_label">Public IP</string>
+    <string name="main_refresh">Refresh now</string>
+    <string name="main_add_widget">Add widget to home</string>
+    <string name="main_hint">Tip: you can also long-press the home background → Widgets → Finger.</string>
+    <string name="main_hint_manual">Long-press the home background → Widgets → Finger</string>
+    <string name="main_querying_ip">querying ip.x9.ar…</string>
+    <string name="vpn_state_on">VPN ON</string>
+    <string name="vpn_state_off">VPN off</string>
+    <string name="vpn_detail_transport">Active network goes through a VPN (TRANSPORT_VPN).</string>
+    <string name="vpn_detail_iface">Active VPN interface (tun/wg/ppp).</string>
+    <string name="vpn_detail_none">No tunnel detected.</string>
+    <string name="ip_no_network">no network</string>
+    <string name="ip_error">error (network blocked?)</string>
+    <string name="widget_updated_at">Widget updated: %1$s</string>
 </resources>
