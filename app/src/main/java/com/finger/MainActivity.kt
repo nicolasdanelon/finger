@@ -12,13 +12,16 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -34,12 +37,46 @@ import kotlinx.coroutines.launch
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // El tap en el widget abre directo el tab Internet
+        val startTab = intent?.getStringExtra(InetWidgetProvider.EXTRA_TAB)
         setContent {
             FingerTheme {
                 Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    FingerScreen()
+                    MainNav(startOnInternet = startTab == InetWidgetProvider.TAB_INTERNET)
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun NavDot() {
+    Box(Modifier.size(6.dp).background(MaterialTheme.colorScheme.primary, CircleShape))
+}
+
+@Composable
+private fun MainNav(startOnInternet: Boolean) {
+    var tab by rememberSaveable { mutableStateOf(if (startOnInternet) 1 else 0) }
+    Scaffold(
+        bottomBar = {
+            NavigationBar {
+                NavigationBarItem(
+                    selected = tab == 0,
+                    onClick = { tab = 0 },
+                    icon = { NavDot() },
+                    label = { Text(stringResource(R.string.nav_lan)) }
+                )
+                NavigationBarItem(
+                    selected = tab == 1,
+                    onClick = { tab = 1 },
+                    icon = { NavDot() },
+                    label = { Text(stringResource(R.string.nav_internet)) }
+                )
+            }
+        }
+    ) { pad ->
+        Box(Modifier.padding(pad)) {
+            if (tab == 0) FingerScreen() else InternetScreen()
         }
     }
 }
