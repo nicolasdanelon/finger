@@ -46,5 +46,4 @@
     <string name="vpn_detail_none">Nessun tunnel rilevato.</string>
     <string name="ip_no_network">senza rete</string>
     <string name="ip_error">errore (rete bloccata?)</string>
-    <string name="widget_updated_at">Widget aggiornato: %1$s</string>
 </resources>

@@ -45,5 +45,4 @@
     <string name="vpn_detail_none">No tunnel detected.</string>
     <string name="ip_no_network">no network</string>
     <string name="ip_error">error (network blocked?)</string>
-    <string name="widget_updated_at">Widget updated: %1$s</string>
 </resources>

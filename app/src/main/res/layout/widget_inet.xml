@@ -25,6 +25,7 @@
                 android:id="@+id/dot_conn"
                 android:layout_width="9dp"
                 android:layout_height="9dp"
+                android:contentDescription="@null"
                 android:src="@drawable/dot_grey" />
 
             <TextView
@@ -70,6 +71,7 @@
                 android:id="@+id/dot_vpn"
                 android:layout_width="9dp"
                 android:layout_height="9dp"
+                android:contentDescription="@null"
                 android:src="@drawable/dot_grey" />
 
             <TextView

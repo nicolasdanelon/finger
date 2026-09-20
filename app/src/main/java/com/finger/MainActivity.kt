@@ -56,7 +56,7 @@ private fun NavDot() {
 
 @Composable
 private fun MainNav(startOnInternet: Boolean) {
-    var tab by rememberSaveable { mutableStateOf(if (startOnInternet) 1 else 0) }
+    var tab by rememberSaveable { mutableIntStateOf(if (startOnInternet) 1 else 0) }
     Scaffold(
         bottomBar = {
             NavigationBar {

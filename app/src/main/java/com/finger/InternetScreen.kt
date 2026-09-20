@@ -7,7 +7,6 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -111,7 +110,7 @@ fun InternetScreen() {
     fun pinWidget() {
         val mgr = activity?.getSystemService(AppWidgetManager::class.java)
         val provider = ComponentName(appCtx, InetWidgetProvider::class.java)
-        if (Build.VERSION.SDK_INT >= 26 && mgr?.isRequestPinAppWidgetSupported == true) {
+        if (mgr?.isRequestPinAppWidgetSupported == true) {
             mgr.requestPinAppWidget(provider, null, null)
         } else {
             showPinHint = true

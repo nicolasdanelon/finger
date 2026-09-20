@@ -46,5 +46,4 @@
     <string name="vpn_detail_none">Sin túnel detectado.</string>
     <string name="ip_no_network">sin red</string>
     <string name="ip_error">error (¿bloqueo de red?)</string>
-    <string name="widget_updated_at">Widget actualizado: %1$s</string>
 </resources>
