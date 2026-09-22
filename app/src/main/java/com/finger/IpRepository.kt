@@ -62,7 +62,7 @@ object IpRepository {
             connectTimeout = 10_000
             readTimeout = 10_000
             setRequestProperty("Accept", "application/json, text/plain, */*")
-            setRequestProperty("User-Agent", "finger-android/1.0")
+            setRequestProperty("User-Agent", "finger-android/1.1.1")
         }
         try {
             val code = conn.responseCode

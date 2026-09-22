@@ -14,8 +14,8 @@ android {
         applicationId = "com.finger"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 3
+        versionName = "1.1.1"
     }
 
     // Signing release con keystore.properties local (gitignored, nunca se commitea).
